@@ -1,2 +1,2 @@
-imbox
+git+https://github.com/mateodurante/imbox.git
 pyngen

@@ -8,4 +8,5 @@ cp -rf /bots/* /opt/dev_intelmq/intelmq/bots/
 cp /opt/intelmq/etc/BOTS /opt/dev_intelmq/intelmq/bots/BOTS
 chmod -R g+w  /opt/intelmq
 cd /opt/dev_intelmq && pip3 install -e .
+#su intelmq; intelmqctl upgrade-config
 $@
