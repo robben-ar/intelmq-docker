@@ -1,0 +1,91 @@
+{
+    "results": [
+        {
+            "function": "v100_dev7_modify_syntax",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:36:34.296378"
+        },
+        {
+            "function": "v110_shadowserver_feednames",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:37:02.394848"
+        },
+        {
+            "function": "v111_defaults_process_manager",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:38:21.600198"
+        },
+        {
+            "function": "v200_defaults_ssl_ca_certificate",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:38:27.092075"
+        },
+        {
+            "function": "v112_feodo_tracker_domains",
+            "message": "The discontinued feed \"Feodo Tracker Domains\" has been found as bot 'abusech-feodo-domains-collector'. Remove it yourself please.",
+            "retval": "The discontinued feed \"Feodo Tracker Domains\" has been found as bot 'abusech-feodo-domains-collector'. Remove it yourself please.",
+            "success": false,
+            "time": "2019-10-04T19:38:33.485785"
+        },
+        {
+            "function": "v112_feodo_tracker_ips",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:38:39.579615"
+        },
+        {
+            "function": "v200_defaults_broker",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:38:45.443025"
+        },
+        {
+            "function": "v200_defaults_statistics",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:38:50.920833"
+        },
+        {
+            "function": "v110_deprecations",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:38:55.922372"
+        },
+        {
+            "function": "v112_feodo_tracker_domains",
+            "message": "The discontinued feed \"Feodo Tracker Domains\" has been found as bot 'abusech-feodo-domains-collector'. Remove it yourself please.",
+            "retval": "The discontinued feed \"Feodo Tracker Domains\" has been found as bot 'abusech-feodo-domains-collector'. Remove it yourself please.",
+            "success": false,
+            "time": "2019-10-04T19:39:07.456014"
+        },
+        {
+            "function": "v112_feodo_tracker_domains",
+            "message": "The discontinued feed \"Feodo Tracker Domains\" has been found as bot 'abusech-feodo-domains-collector'. Remove it yourself please.",
+            "retval": "The discontinued feed \"Feodo Tracker Domains\" has been found as bot 'abusech-feodo-domains-collector'. Remove it yourself please.",
+            "success": false,
+            "time": "2019-10-04T19:41:12.379213"
+        },
+        {
+            "function": "v112_feodo_tracker_domains",
+            "retval": null,
+            "success": true,
+            "time": "2019-10-04T19:42:34.953058"
+        }
+    ],
+    "upgrades": {
+        "v100_dev7_modify_syntax": true,
+        "v110_deprecations": true,
+        "v110_shadowserver_feednames": true,
+        "v111_defaults_process_manager": true,
+        "v112_feodo_tracker_domains": true,
+        "v112_feodo_tracker_ips": true,
+        "v200_defaults_broker": true,
+        "v200_defaults_ssl_ca_certificate": true,
+        "v200_defaults_statistics": true
+    },
+    "version_history": []
+}
