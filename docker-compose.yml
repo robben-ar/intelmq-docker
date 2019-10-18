@@ -16,8 +16,8 @@ services:
       - intelmq-network
     volumes:
       - ./intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq-bots/manager:/opt/intelmq/etc/manager
       - ./intelmq-bots/bots:/bots
+      - ./intelmq-bots/etc:/opt/intelmq/etc
     environment:
       - REDIS_SERVER=redis 
   redis:

@@ -29,11 +29,11 @@ chmod g+w /opt/intelmq/etc/*.conf /opt/intelmq/etc/manager/positions.conf
 RUN echo "www-data ALL=(intelmq) NOPASSWD: /usr/local/bin/intelmqctl" >> /etc/sudoers
 
 ADD state.json /opt/intelmq/var/lib/state.json
-ADD etc/defaults.conf /opt/intelmq/etc/
-ADD etc/BOTS /opt/intelmq/etc/
-ADD etc/pipeline.conf /opt/intelmq/etc/
-ADD etc/runtime.conf /opt/intelmq/etc/
-RUN chown -R intelmq.intelmq /opt/intelmq/ /opt/intelmq/var/lib/state.json
+#ADD etc/defaults.conf /opt/intelmq/etc/
+#ADD etc/BOTS /opt/intelmq/etc/
+#ADD etc/pipeline.conf /opt/intelmq/etc/
+#ADD etc/runtime.conf /opt/intelmq/etc/
+#RUN chown -R intelmq.intelmq /opt/intelmq/ /opt/intelmq/var/lib/state.json
 ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
 #RUN cd /opt/dev_intelmq && git pull
