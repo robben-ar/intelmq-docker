@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+  intelmq-network:
+    driver: bridge
+
+services:
+  intelmq:
+    build: intelmq/
+    ports:
+        - 8081:80
+    depends_on:
+      - redis
+    image: intelmq
+    networks:
+      - intelmq-network
+    volumes:
+      - ./intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
+      - ./intelmq-bots/manager:/opt/intelmq/etc/manager
+      - ./intelmq-bots/bots:/bots
+    environment:
+      - REDIS_SERVER=redis 
+  redis:
+    image: redis
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+    networks:
+      - intelmq-network
