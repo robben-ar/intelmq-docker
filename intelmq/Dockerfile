@@ -7,7 +7,6 @@ RUN apt update && apt install -y python3-pip python3-dnspython python3-psutil py
 
 RUN pip3 install intelmq
 
-#RUN mv `python3 -c "import site; print(site.getsitepackages()[0] + '/opt/intelmq')"` /opt/
 RUN useradd -d /opt/intelmq -U -s /bin/bash intelmq
 RUN intelmqsetup
 
@@ -35,5 +34,8 @@ RUN chmod +x /usr/bin/entrypoint
 
 ADD requirements.txt /requirements.txt
 
+ADD dev_intelmq /opt/dev_intelmq
+ADD entrypoint /usr/bin/entrypoint
+RUN chmod +x /usr/bin/entrypoint
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]
