@@ -78,7 +78,7 @@ class Pipeline(object):
     def disconnect(self):
         raise NotImplementedError
 
-    def set_queues(self, queues, queues_type):
+    def set_queues(self, queues: Optional[str], queues_type: str):
         """
         :param queues: For source queue, it's just string.
                     For destination queue, it can be one of the following:
@@ -113,7 +113,8 @@ class Pipeline(object):
         else:
             raise exceptions.InvalidArgument('queues_type', got=queues_type, expected=['source', 'destination'])
 
-    def send(self, message, path="_default", path_permissive=False):
+    def send(self, message: str, path: str = "_default",
+             path_permissive: bool = False):
         raise NotImplementedError
 
     def receive(self) -> str:
@@ -204,7 +205,8 @@ class Redis(Pipeline):
         self.load_configurations(queues_type)
         super().set_queues(queues, queues_type)
 
-    def send(self, message, path="_default", path_permissive=False):
+    def send(self, message: str, path: str = "_default",
+             path_permissive: bool = False):
         if path not in self.destination_queues and path_permissive:
             return
 
@@ -319,9 +321,6 @@ class Pythonlist(Pipeline):
     def disconnect(self):
         pass
 
-    def sleep(self, interval):
-        warnings.warn("'Pipeline.sleep' will be removed in version 2.0.", DeprecationWarning)
-
     def set_queues(self, queues, queues_type):
         super().set_queues(queues, queues_type)
         self.state[self.internal_queue] = []
@@ -329,7 +328,8 @@ class Pythonlist(Pipeline):
         for destination_queue in chain.from_iterable(self.destination_queues.values()):
             self.state[destination_queue] = []
 
-    def send(self, message, path="_default", path_permissive=False):
+    def send(self, message: str, path: str = "_default",
+             path_permissive: bool = False):
         """Sends a message to the destination queues"""
         if path not in self.destination_queues and path_permissive:
             return
@@ -439,7 +439,7 @@ class Amqp(Pipeline):
 
         self.monitoring_url = getattr(self.parameters,
                                       'intelmqctl_rabbitmq_monitoring_url',
-                                      'http://%s:15671/' % self.host)
+                                      'http://%s:15672/' % self.host)
         if not self.monitoring_url.endswith('/'):
             self.monitoring_url = "%s/" % self.monitoring_url
 
@@ -509,7 +509,8 @@ class Amqp(Pipeline):
             if not self.publish_raises_nack and not retval:
                 raise exceptions.PipelineError('Sent message was not confirmed.')
 
-    def send(self, message: str, path="_default", path_permissive=False) -> None:
+    def send(self, message: str, path: str = "_default",
+             path_permissive: bool = False):
         """
         In principle we could use AMQP's exchanges here but that architecture is incompatible
         to the format of our pipeline.conf file.
