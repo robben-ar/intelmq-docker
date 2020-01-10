@@ -12,6 +12,8 @@ services:
     depends_on:
       - redis
     image: intelmq
+    cap_add:
+      - NET_ADMIN
     networks:
       - intelmq-network
     volumes:
