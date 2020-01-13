@@ -1,0 +1,52 @@
+version: '3'
+
+networks:
+  intelmq-network:
+    driver: bridge
+
+services:
+  intelmq:
+    build: intelmq/
+    ports:
+        - 8081:80
+    depends_on:
+      - redis
+    image: intelmq
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - intelmq-network
+    volumes:
+      - ./intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
+      - ./intelmq-bots/bots:/bots
+      - ./intelmq-bots/etc:/opt/intelmq/etc
+    environment:
+      - REDIS_SERVER=redis 
+  redis:
+    image: redis
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+    networks:
+      - intelmq-network
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    environment:
+      - discovery.type=single-node
+      - cluster.routing.allocation.disk.threshold_enabled=false
+    ports:
+      - 9200:9200
+    networks:
+      - intelmq-network
+  grafana:
+    image: grafana/grafana:6.5.2
+    container_name: grafana
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    ports:
+      - 3000:3000
+    user: "0"
+    networks:
+      - intelmq-network
