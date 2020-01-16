@@ -4,8 +4,7 @@ touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test
 #chown -R intelmq:intelmq /opt/dev_intelmq/
 chown -R intelmq:intelmq /opt/intelmq/
 usermod www-data -a -G intelmq
-cp -rf /bots/* /opt/dev_intelmq/intelmq/bots/
-cp /opt/intelmq/etc/BOTS /opt/dev_intelmq/intelmq/bots/BOTS
+cp /opt/dev_intelmq/intelmq/bots/BOTS /opt/intelmq/etc/BOTS 
 chmod -R g+w  /opt/intelmq
 cd /opt/dev_intelmq && pip3 install -e .
 su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
