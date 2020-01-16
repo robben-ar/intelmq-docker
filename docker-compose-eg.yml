@@ -17,18 +17,17 @@ services:
     networks:
       - intelmq-network
     volumes:
-      - ./intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq-bots/bots:/bots
-      - ./intelmq-bots/etc:/opt/intelmq/etc
+      - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
+      - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
     environment:
       - REDIS_SERVER=redis 
   redis:
     image: redis
-    volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-    command:
-      - redis-server
-      - /usr/local/etc/redis/redis.conf
+    #  volumes:
+    #  - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    #    command:
+    #  - redis-server
+    #  - /usr/local/etc/redis/redis.conf
     networks:
       - intelmq-network
   elasticsearch:

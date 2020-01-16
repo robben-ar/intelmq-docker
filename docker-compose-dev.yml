@@ -12,13 +12,12 @@ services:
     depends_on:
       - redis
     image: intelmq
-    cap_add:
-      - NET_ADMIN
     networks:
       - intelmq-network
     volumes:
       - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
       - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
+      - ./intelmq/intelmq-bots/bots:/opt/dev_intelmq/intelmq/bots/
     environment:
       - REDIS_SERVER=redis 
   redis:

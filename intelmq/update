@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /opt/dev_intelmq && pip3 install -e .
+su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'

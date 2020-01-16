@@ -30,12 +30,11 @@ RUN echo "www-data ALL=(intelmq) NOPASSWD: /usr/local/bin/intelmqctl" >> /etc/su
 ADD state.json /opt/intelmq/var/lib/state.json
 ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
+ADD update /usr/bin/update
+COPY intelmq-bots/bots/ /opt/dev_intelmq/intelmq/bots/
 RUN chmod +x /usr/bin/entrypoint
 
 ADD requirements.txt /requirements.txt
 
-ADD dev_intelmq /opt/dev_intelmq
-ADD entrypoint /usr/bin/entrypoint
-RUN chmod +x /usr/bin/entrypoint
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]
