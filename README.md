@@ -9,7 +9,7 @@ Docker for Intelmq in develop mode.
 
 ```
 git clone https://github.com/CERTUNLP/intelmq-docker
-cd intelmq-docker
+cd intelmq-docker/intelmq
 git clone https://github.com/CERTUNLP/intelmq-bots
 docker-compose build
 docker-compose up
