@@ -1,51 +1,55 @@
-version: '3'
-
-networks:
-  intelmq-network:
-    driver: bridge
-
+version: '2'
+volumes:
+  cert-intelmq-bots-output:
+    driver: local
+  cert-intelmq-bots:
+    driver: local
+  cert-intelmq-elastic-data:
+    driver: local
+  cert-intelmq-redis:
+    driver: local
+  cert-intelmq-grafana:
+    driver: local
 services:
-  intelmq:
-    build: intelmq/
-    ports:
-        - 8081:80
-    depends_on:
-      - redis
-    image: intelmq
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - intelmq-network
-    volumes:
-      - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
-    environment:
-      - REDIS_SERVER=redis 
-  redis:
-    image: redis
-    #  volumes:
-    #  - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-    #    command:
-    #  - redis-server
-    #  - /usr/local/etc/redis/redis.conf
-    networks:
-      - intelmq-network
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
     environment:
-      - discovery.type=single-node
-      - cluster.routing.allocation.disk.threshold_enabled=false
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      cluster.routing.allocation.disk.threshold_enabled: 'false'
+      discovery.type: single-node
+      search.max_buckets: '10002'
+    volumes:
+    - cert-intelmq-elastic-data:/usr/share/elasticsearch/data
+    links:
+    - grafana:grafana
     ports:
       - 9200:9200
-    networks:
-      - intelmq-network
   grafana:
     image: grafana/grafana:6.5.2
-    container_name: grafana
     volumes:
-      - ./data/grafana:/var/lib/grafana
+    - cert-intelmq-grafana:/var/lib/grafana
+    links:
+    - elasticsearch:elasticsearch
+    user: '0'
     ports:
       - 3000:3000
-    user: "0"
-    networks:
-      - intelmq-network
+  redis:
+    image: redis
+    volumes:
+    - cert-intelmq-redis:/usr/local/etc/redis/
+    command:
+    - redis-server
+    - /usr/local/etc/redis/redis.conf
+  intelmq:
+    image: certunlp/intelmq:0.9
+    environment:
+      REDIS_SERVER: redis
+      REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.gitg
+    volumes:
+    - cert-intelmq-bots-output:/opt/intelmq/var/lib/bots/file-output/
+    - cert-intelmq-bots:/opt/intelmq/etc
+    links:
+    - redis:redis
+    - elasticsearch:elasticsearch
+    ports:
+        - 8081:80

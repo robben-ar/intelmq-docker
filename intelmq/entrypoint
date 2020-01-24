@@ -1,11 +1,28 @@
 #!/bin/bash
-pip3 install -r /requirements.txt
-touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test
-#chown -R intelmq:intelmq /opt/dev_intelmq/
-chown -R intelmq:intelmq /opt/intelmq/
-usermod www-data -a -G intelmq
-cp /opt/dev_intelmq/intelmq/bots/BOTS /opt/intelmq/etc/BOTS 
+
+if [[ ! -z "${REPO_UPDATE}" ]]; then
+	rm -fr /intelmq-bots
+	git clone https://${REPO_UPDATE}
+	cp -a intelmq-bots/bots/* /opt/dev_intelmq/intelmq/bots/
+	cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
+	cd /opt/dev_intelmq && pip3 install -e .
+	su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
+	chown -R intelmq:intelmq /opt/intelmq/
+fi
+
+for file in /opt/intelmq/bots/*/*/REQUIREMENTS.txt; do pip install -r $file; done
+
+for i in $(find /intelmq-bots/etc/ -name "*.conf"); do
+	if [[ ! -f /opt/intelmq/etc/$(basename $i) ]]; then
+		cp $i /opt/intelmq/etc/;
+	fi;
+done;
+if [[ ! -d /opt/intelmq/etc/manager ]]; then
+		cp -a /intelmq-bots/etc/manager /opt/intelmq/etc/;
+		chow -R intelmq.www-data /opt/intelmq/etc/manager;
+fi;
+
+chown -R intelmq.www-data /opt/intelmq/etc/;
 chmod -R g+w  /opt/intelmq
-cd /opt/dev_intelmq && pip3 install -e .
-su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
+
 $@

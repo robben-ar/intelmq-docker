@@ -11,8 +11,6 @@ RUN useradd -d /opt/intelmq -U -s /bin/bash intelmq
 RUN intelmqsetup
 
 RUN chmod -R 0770 /opt/intelmq
-RUN chown -R intelmq.intelmq /opt/intelmq
-
 
 RUN apt update -y && apt install -y apache2 php git sudo libapache2-mod-php7.2  && apt-get autoremove -y && apt-get clean
 
@@ -31,10 +29,10 @@ ADD state.json /opt/intelmq/var/lib/state.json
 ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
-COPY intelmq-bots/bots/ /opt/dev_intelmq/intelmq/bots/
+
 RUN chmod +x /usr/bin/entrypoint
 
-ADD requirements.txt /requirements.txt
+RUN for file in /opt/intelmq/bots/*/*/REQUIREMENTS.txt; do pip install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]
