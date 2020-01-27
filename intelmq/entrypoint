@@ -2,7 +2,7 @@
 
 if [[ ! -z "${REPO_UPDATE}" ]]; then
 	rm -fr /intelmq-bots
-	git clone https://${REPO_UPDATE}
+	git clone ${REPO_UPDATE}
 	cp -a intelmq-bots/bots/* /opt/dev_intelmq/intelmq/bots/
 	cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
 	cd /opt/dev_intelmq && pip3 install -e .

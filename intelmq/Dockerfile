@@ -26,13 +26,15 @@ chmod g+w /opt/intelmq/etc/*.conf /opt/intelmq/etc/manager/positions.conf
 RUN echo "www-data ALL=(intelmq) NOPASSWD: /usr/local/bin/intelmqctl" >> /etc/sudoers
 
 ADD state.json /opt/intelmq/var/lib/state.json
-ADD dev_intelmq /opt/dev_intelmq
+RUN git clone https://github.com/certtools/intelmq.git /opt/dev_intelmq
+
+#ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
 
 RUN chmod +x /usr/bin/entrypoint
-
-RUN for file in /opt/intelmq/bots/*/*/REQUIREMENTS.txt; do pip install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
+RUN ls  /opt/dev_intelmq/bots/
+RUN for file in /opt/dev_intelmq/bots/*/*/REQUIREMENTS.txt; do pip3 install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]

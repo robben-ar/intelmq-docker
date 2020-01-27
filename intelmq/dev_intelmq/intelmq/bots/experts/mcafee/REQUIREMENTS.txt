@@ -1,2 +1,0 @@
-dxlclient>=4.1.0.185
-dxlmarclient>=0.2.0

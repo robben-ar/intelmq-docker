@@ -1,32 +1,26 @@
-version: '3'
-
-networks:
-  intelmq-network:
-    driver: bridge
-
+version: '2'
+volumes:
+  cert-intelmq-bots-output:
+    driver: local
+  cert-intelmq-bots:
+    driver: local
 services:
-  intelmq:
-    build: intelmq/
-    ports:
-        - 8081:80
-    depends_on:
-      - redis
-    image: intelmq
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - intelmq-network
-    volumes:
-      - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
-    environment:
-      - REDIS_SERVER=redis 
   redis:
     image: redis
     volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    - ./redis:/usr/local/etc/redis/
     command:
-      - redis-server
-      - /usr/local/etc/redis/redis.conf
-    networks:
-      - intelmq-network
+    - redis-server
+    - /usr/local/etc/redis/redis.conf
+  intelmq:
+    image: certunlp/intelmq:0.9
+    environment:
+      REDIS_SERVER: redis
+      REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
+    volumes:
+    - cert-intelmq-bots-output:/opt/intelmq/var/lib/bots/file-output/
+    - cert-intelmq-bots:/opt/intelmq/etc
+    links:
+    - redis:redis
+    ports:
+        - 8081:80
