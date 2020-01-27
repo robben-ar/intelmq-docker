@@ -33,8 +33,8 @@ ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
 
 RUN chmod +x /usr/bin/entrypoint
-RUN ls  /opt/dev_intelmq/bots/
-RUN for file in /opt/dev_intelmq/bots/*/*/REQUIREMENTS.txt; do pip3 install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
+RUN ls /opt/ -R |grep -B6 REQUIREMENTS.txt
+RUN for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]

@@ -11,7 +11,6 @@ services:
         - 8081:80
     depends_on:
       - redis
-    image: intelmq
     networks:
       - intelmq-network
     volumes:
@@ -19,7 +18,8 @@ services:
       - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
       - ./intelmq/intelmq-bots/bots:/opt/dev_intelmq/intelmq/bots/
     environment:
-      - REDIS_SERVER=redis 
+      - REDIS_SERVER: redis
+      - REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git 
   redis:
     image: redis
     volumes:

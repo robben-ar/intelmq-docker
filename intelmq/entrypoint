@@ -5,12 +5,11 @@ if [[ ! -z "${REPO_UPDATE}" ]]; then
 	git clone ${REPO_UPDATE}
 	cp -a intelmq-bots/bots/* /opt/dev_intelmq/intelmq/bots/
 	cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
-	cd /opt/dev_intelmq && pip3 install -e .
+	for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done
 	su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
 	chown -R intelmq:intelmq /opt/intelmq/
 fi
 
-for file in /opt/intelmq/bots/*/*/REQUIREMENTS.txt; do pip install -r $file; done
 
 for i in $(find /intelmq-bots/etc/ -name "*.conf"); do
 	if [[ ! -f /opt/intelmq/etc/$(basename $i) ]]; then

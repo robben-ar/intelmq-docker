@@ -13,7 +13,7 @@ services:
     - redis-server
     - /usr/local/etc/redis/redis.conf
   intelmq:
-    image: certunlp/intelmq:0.9
+    image: certunlp/intelmq:1.0
     environment:
       REDIS_SERVER: redis
       REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
