@@ -1,21 +1,49 @@
-Docker for Intelmq in develop mode.
+
+Intelmq in Docker: This repo is for instance imtelmq using docker.
+
+We split the project in 2 parts:
+
+Part 1: The intelmq itself 
+
+* Intelmq source code: we clone the source code frome https://github.com/certtools/intelmq and use it in our image.
+
+Part 2: The bots and configuration
+
+* This image is building using another repo: https://github.com/CERTUNLP/intelmq-bots wich contains default intelmq coynfiguration for bots.
+* There are default intelmq bots there, we made this new repo to make our life easier when we develop our own bots. You can fork this repo to build yours. 
+
 
 # Requirements
 
 - Docker
 - Docker-compose
 
-# Installation
+# Installation 
 
 ```
 git clone https://github.com/CERTUNLP/intelmq-docker
-cd intelmq-docker/intelmq
-git clone https://github.com/CERTUNLP/intelmq-bots
-cd ..
+cd intelmq-docker
 docker-compose build
 docker-compose up
+
 ```
+# Use it:
 
 http://localhost:8081
 
-You can create your own bots at intelmq-bots/bots.
+# Setting your own bots.
+
+In docker-compose is and ENV setting that tell intelmq where he need to go to find his config and bots, in the example is:
+
+	
+	REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
+
+But you can use yours or get this option off to prevent intelmq to update bots.
+
+First time you run the docker-compose: bots and conf are going to be downloaded from the REPO_UPDATE, next time you boot the image only bots are going to be updated if REPO_UPDATE is in docker.compose.yml.  
+
+# Using it with elasticsearch and grafana
+
+There is another docker-compose-eg.yml wich give you ElasticSearch and Grafana, wich you can use to build another cain of output.
+
+
