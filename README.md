@@ -9,7 +9,7 @@ Part 1: The intelmq itself
 
 Part 2: The bots and configuration
 
-* This image is building using another repo: https://github.com/CERTUNLP/intelmq-bots wich contains default intelmq coynfiguration for bots.
+* This image is building using another repo: https://github.com/CERTUNLP/intelmq-bots wich contains default intelmq configuration for bots.
 * There are default intelmq bots there, we made this new repo to make our life easier when we develop our own bots. You can fork this repo to build yours. 
 
 
@@ -44,6 +44,6 @@ First time you run the docker-compose: bots and conf are going to be downloaded 
 
 # Using it with elasticsearch and grafana
 
-There is another docker-compose-eg.yml wich give you ElasticSearch and Grafana, wich you can use to build another cain of output.
+There is another docker-compose-eg.yml wich give you ElasticSearch and Grafana, wich you can use to build another chain of output.
 
 
