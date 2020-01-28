@@ -6,8 +6,6 @@ if [[ ! -z "${REPO_UPDATE}" ]]; then
 	cp -a intelmq-bots/bots/* /opt/dev_intelmq/intelmq/bots/
 	cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
 	for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done
-	su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
-	chown -R intelmq:intelmq /opt/intelmq/
 fi
 
 
@@ -16,11 +14,13 @@ for i in $(find /intelmq-bots/etc/ -name "*.conf"); do
 		cp $i /opt/intelmq/etc/;
 	fi;
 done;
-if [[ ! -d /opt/intelmq/etc/manager ]]; then
+if [[ ! -f /opt/intelmq/etc/manager/positions.conf ]]; then
 		cp -a /intelmq-bots/etc/manager /opt/intelmq/etc/;
 		chow -R intelmq.www-data /opt/intelmq/etc/manager;
 fi;
 
+su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
+chown -R intelmq:intelmq /opt/intelmq/
 chown -R intelmq.www-data /opt/intelmq/etc/;
 chmod -R g+w  /opt/intelmq
 

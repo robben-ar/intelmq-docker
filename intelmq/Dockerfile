@@ -18,10 +18,7 @@ RUN git clone https://github.com/certtools/intelmq-manager.git /tmp/intelmq-mana
  && cp -R /tmp/intelmq-manager/intelmq-manager/* /var/www/html/ \
 && chown -R www-data.www-data /var/www/html/ && rm /var/www/html/index.html
 
-RUN usermod -a -G intelmq www-data && mkdir /opt/intelmq/etc/manager/ && \
-touch /opt/intelmq/etc/manager/positions.conf && \
-chgrp www-data /opt/intelmq/etc/*.conf /opt/intelmq/etc/manager/positions.conf && \
-chmod g+w /opt/intelmq/etc/*.conf /opt/intelmq/etc/manager/positions.conf
+RUN usermod -a -G intelmq www-data && mkdir /opt/intelmq/etc/manager
 
 RUN echo "www-data ALL=(intelmq) NOPASSWD: /usr/local/bin/intelmqctl" >> /etc/sudoers
 
@@ -33,8 +30,8 @@ ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
 
 RUN chmod +x /usr/bin/entrypoint
-RUN ls /opt/ -R |grep -B6 REQUIREMENTS.txt
 RUN for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
+RUN rm -fr /opt/intelmq/etc/*.conf 
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]
