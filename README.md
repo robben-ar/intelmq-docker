@@ -1,13 +1,13 @@
 
-Intelmq in Docker: This repo is for instance imtelmq using docker.
+# Intelmq in Docker: This repo is for instance imtelmq using docker.
 
-We split the project in 2 parts:
+## We split the project in 2 parts:
 
-Part 1: The intelmq itself 
+### Part 1: The intelmq itself 
 
 * Intelmq source code: we clone the source code frome https://github.com/certtools/intelmq and use it in our image.
 
-Part 2: The bots and configuration
+### Part 2: The bots and configuration
 
 * This image is building using another repo: https://github.com/CERTUNLP/intelmq-bots wich contains default intelmq configuration for bots.
 * There are default intelmq bots there, we made this new repo to make our life easier when we develop our own bots. You can fork this repo to build yours. 
