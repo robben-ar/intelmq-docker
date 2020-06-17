@@ -16,7 +16,7 @@ for i in $(find /intelmq-bots/etc/ -name "*.conf"); do
 done;
 if [[ ! -f /opt/intelmq/etc/manager/positions.conf ]]; then
 		cp -a /intelmq-bots/etc/manager /opt/intelmq/etc/;
-		chow -R intelmq.www-data /opt/intelmq/etc/manager;
+		chown -R intelmq.www-data /opt/intelmq/etc/manager;
 fi;
 
 su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
