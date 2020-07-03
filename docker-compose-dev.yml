@@ -18,8 +18,8 @@ services:
       - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
       - ./intelmq/intelmq-bots/bots:/opt/dev_intelmq/intelmq/bots/
     environment:
-      - REDIS_SERVER: redis
-      - REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git 
+      REDIS_SERVER: redis
+      REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
   redis:
     image: redis
     volumes:
