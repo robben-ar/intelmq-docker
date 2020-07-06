@@ -4,6 +4,8 @@ volumes:
     driver: local
   cert-intelmq-bots:
     driver: local
+  cert-intelmq-logs:
+    driver: local
 services:
   redis:
     image: redis
@@ -19,8 +21,19 @@ services:
       REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
     volumes:
     - cert-intelmq-bots-output:/opt/intelmq/var/lib/bots/file-output/
-    - cert-intelmq-bots:/opt/intelmq/etc
+    - cert-intelmq-bots:/opt/intelmq/etc/
+    - cert-intelmq-logs:/opt/intelmq/var/log/
     links:
     - redis:redis
     ports:
         - 8081:80
+  logrotate:
+    image: blacklabelops/logrotate
+    environment:
+      LOGS_DIRECTORIES: /var/log/intelmq
+      LOGROTATE_COPIES: '3'
+      LOGROTATE_SIZE: 100M
+      LOGROTATE_COMPRESSION: compress
+      LOGROTATE_CRONSCHEDULE: '30 * * * * *'
+    volumes:
+    - icert-intelmq-log:/var/log/intelmq

@@ -17,6 +17,8 @@ services:
       - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
       - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
       - ./intelmq/intelmq-bots/bots:/opt/dev_intelmq/intelmq/bots/
+      - ./intelmq/intelmq-logs:/opt/intelmq/var/log/
+
     environment:
       REDIS_SERVER: redis
       REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
@@ -29,3 +31,13 @@ services:
       - /usr/local/etc/redis/redis.conf
     networks:
       - intelmq-network
+  logrotate:
+    image: blacklabelops/logrotate
+    environment:
+      LOGS_DIRECTORIES: /var/log/intelmq
+      LOGROTATE_COPIES: '3'
+      LOGROTATE_SIZE: 100M
+      LOGROTATE_COMPRESSION: compress
+      LOGROTATE_CRONSCHEDULE: '46 * * * * *'
+    volumes:
+    - ./intelmq/intelmq-logs:/var/log/intelmq
