@@ -3,3 +3,4 @@
 output/*
 intelmq-bots/
 data/*
+docker-compose-local.yml

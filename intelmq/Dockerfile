@@ -30,11 +30,11 @@ RUN git clone https://github.com/certtools/intelmq.git /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
 
-RUN chmod +x /usr/bin/entrypoint
+RUN chmod +x /usr/bin/entrypoint /usr/bin/update
 RUN for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done
 RUN touch /usr/local/lib/python3.7/dist-packages/test-easy-install-16.write-test
 RUN chown -R intelmq:intelmq /opt/intelmq/
-RUN rm -fr /opt/intelmq/etc/*.conf
+RUN rm -fr /opt/intelmq/etc/*.conf /var/lib/apt/lists/* /root/.cache
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]
