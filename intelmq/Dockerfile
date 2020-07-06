@@ -1,11 +1,12 @@
 FROM ubuntu:bionic
+
 MAINTAINER Einar <elanfranco@cert.unlp.edu.ar>
 MAINTAINER Jeremias <jpretto@cert.unlp.edu.ar>
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt update && apt install -y python3-pip python3-dnspython python3-psutil python3-redis python3-requests python3-termstyle python3-tz python3-dateutil jq python3-sleekxmpp python3-pymongo python3-psycopg2 bash-completion
+RUN apt  update && apt install -y python3-pip python3-dnspython python3-psutil python3-redis python3-requests python3-termstyle python3-tz python3-dateutil jq python3-sleekxmpp python3-pymongo python3-psycopg2 bash-completion
 
-RUN pip3 install intelmq
+RUN pip3 install --default-timeout=100 intelmq
 
 RUN useradd -d /opt/intelmq -U -s /bin/bash intelmq
 RUN intelmqsetup
@@ -15,7 +16,7 @@ RUN chmod -R 0770 /opt/intelmq
 RUN apt update -y && apt install -y apache2 php git sudo libapache2-mod-php7.2  && apt-get autoremove -y && apt-get clean
 
 RUN git clone https://github.com/certtools/intelmq-manager.git /tmp/intelmq-manager \
- && cp -R /tmp/intelmq-manager/intelmq-manager/* /var/www/html/ \
+ && cp -R /tmp/intelmq-manager/intelmq_manager/* /var/www/html/ \
 && chown -R www-data.www-data /var/www/html/ && rm /var/www/html/index.html
 
 RUN usermod -a -G intelmq www-data && mkdir /opt/intelmq/etc/manager
