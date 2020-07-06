@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM python:3-slim-buster
 
 MAINTAINER Einar <elanfranco@cert.unlp.edu.ar>
 MAINTAINER Jeremias <jpretto@cert.unlp.edu.ar>
@@ -13,10 +13,10 @@ RUN intelmqsetup
 
 RUN chmod -R 0770 /opt/intelmq
 
-RUN apt update -y && apt install -y apache2 php git sudo libapache2-mod-php7.2  && apt-get autoremove -y && apt-get clean
+RUN apt update -y && apt install -y apache2 php git sudo libapache2-mod-php7.3  && apt-get autoremove -y && apt-get clean
 
-RUN git clone https://github.com/certtools/intelmq-manager.git /tmp/intelmq-manager \
- && cp -R /tmp/intelmq-manager/intelmq_manager/* /var/www/html/ \
+RUN git clone --branch 2.2.0 https://github.com/certtools/intelmq-manager.git --single-branch /tmp/intelmq-manager \
+ && cp -R /tmp/intelmq-manager/intelmq-manager/* /var/www/html/ \
 && chown -R www-data.www-data /var/www/html/ && rm /var/www/html/index.html
 
 RUN usermod -a -G intelmq www-data && mkdir /opt/intelmq/etc/manager
@@ -31,8 +31,10 @@ ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
 
 RUN chmod +x /usr/bin/entrypoint
-RUN for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done && touch /usr/local/lib/python3.6/dist-packages/test-easy-install-16.write-test && chown -R intelmq:intelmq /opt/intelmq/
-RUN rm -fr /opt/intelmq/etc/*.conf 
+RUN for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done
+RUN touch /usr/local/lib/python3.7/dist-packages/test-easy-install-16.write-test
+RUN chown -R intelmq:intelmq /opt/intelmq/
+RUN rm -fr /opt/intelmq/etc/*.conf
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]
