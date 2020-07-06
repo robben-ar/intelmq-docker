@@ -17,7 +17,7 @@ services:
       - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
       - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
       - ./intelmq/intelmq-bots/bots:/opt/dev_intelmq/intelmq/bots/
-      - ./intelmq/intelmq-logs:/opt/intelmq/var/log/
+      - ./intelmq/intelmq-bots/logs:/opt/intelmq/var/log/
 
     environment:
       REDIS_SERVER: redis
@@ -40,4 +40,4 @@ services:
       LOGROTATE_COMPRESSION: compress
       LOGROTATE_CRONSCHEDULE: '46 * * * * *'
     volumes:
-    - ./intelmq/intelmq-logs:/var/log/intelmq
+    - ./intelmq/intelmq-bots/logs:/var/log/intelmq
