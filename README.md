@@ -34,13 +34,26 @@ http://localhost:8081
 # Setting your own bots.
 
 In docker-compose is and ENV setting that tell intelmq where he need to go to find his config and bots, in the example is:
-
 	
 	REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
 
 But you can use yours or get this option off to prevent intelmq to update bots.
 
 First time you run the docker-compose: bots and conf are going to be downloaded from the REPO_UPDATE, next time you boot the image only bots are going to be updated if REPO_UPDATE is in docker.compose.yml.  
+
+# Develop mode
+
+First clone your intelmq-bots (or default repo):
+
+```
+REPOBOTS=https://github.com/CERTUNLP/intelmq-bots.git
+git clone $REPOBOTS <repofolder>/intelmq/intelmq-bots
+```
+
+Then you can update your bots and intelmqmanager with:
+
+`docker exec -it intelmq-docker_intelmq_1 update`
+
 
 # Using it with elasticsearch and grafana
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if [[ ! -z "${REPO_UPDATE}" ]]; then
 	rm -fr /intelmq-bots
 	git clone ${REPO_UPDATE}
@@ -19,7 +20,12 @@ if [[ ! -f /opt/intelmq/etc/manager/positions.conf ]]; then
 		chown -R intelmq.www-data /opt/intelmq/etc/manager;
 fi;
 
-su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
+if [[ ! -z "${DEV}" ]]; then
+	update
+else
+	su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
+fi
+
 chown -R intelmq:intelmq /opt/intelmq/
 chown -R intelmq.www-data /opt/intelmq/etc/;
 chmod -R g+w  /opt/intelmq

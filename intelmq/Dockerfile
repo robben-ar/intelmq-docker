@@ -24,7 +24,7 @@ RUN usermod -a -G intelmq www-data && mkdir /opt/intelmq/etc/manager
 RUN echo "www-data ALL=(intelmq) NOPASSWD: /usr/local/bin/intelmqctl" >> /etc/sudoers
 
 ADD state.json /opt/intelmq/var/lib/state.json
-RUN git clone https://github.com/certtools/intelmq.git /opt/dev_intelmq
+RUN git clone --branch 2.2.0 https://github.com/certtools/intelmq.git  --single-branch /opt/dev_intelmq
 
 #ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint

@@ -15,13 +15,13 @@ services:
       - intelmq-network
     volumes:
       - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc
-      - ./intelmq/intelmq-bots/bots:/opt/dev_intelmq/intelmq/bots/
+      - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc/
+      - ./intelmq/intelmq-bots/:/intelmq-bots/
       - ./intelmq/intelmq-bots/logs:/opt/intelmq/var/log/
 
     environment:
       REDIS_SERVER: redis
-      REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
+      DEV: "true"
   redis:
     image: redis
     volumes:
