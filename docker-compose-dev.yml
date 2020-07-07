@@ -15,10 +15,11 @@ services:
       - intelmq-network
     volumes:
       - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq/intelmq-bots/etc:/opt/intelmq/etc/
-      - ./intelmq/intelmq-bots/:/intelmq-bots/
       - ./intelmq/intelmq-bots/logs:/opt/intelmq/var/log/
-
+      # git clone yourRepo or https://github.com/CERTUNLP/intelmq-bots.git in ./intelmq/intelmq-bots/gitRepo
+      - ./intelmq/intelmq-bots/gitRepo/etc:/opt/intelmq/etc
+      - ./intelmq/intelmq-bots/gitRepo/bots/BOTS:/opt/intelmq/etc/BOTS
+      - ./intelmq/intelmq-bots/gitRepo/bots:/intelmq-bots/
     environment:
       REDIS_SERVER: redis
       DEV: "true"
