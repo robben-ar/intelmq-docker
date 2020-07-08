@@ -35,3 +35,4 @@ chown -R intelmq.www-data /opt/intelmq/etc/;
 chmod -R g+w  /opt/intelmq
 
 $@
+

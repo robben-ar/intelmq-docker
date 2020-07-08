@@ -42,3 +42,4 @@ services:
       LOGROTATE_CRONSCHEDULE: '46 * * * * *'
     volumes:
     - ./intelmq/intelmq-bots/logs:/var/log/intelmq
+
