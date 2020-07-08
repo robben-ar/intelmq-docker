@@ -47,7 +47,8 @@ First clone your intelmq-bots (or default repo):
 
 ```
 REPOBOTS=https://github.com/CERTUNLP/intelmq-bots.git
-git clone $REPOBOTS <repofolder>/intelmq/intelmq-bots
+git clone $REPOBOTS intelmq/intelmq-bots/gitRepo
+
 ```
 
 Then you can update your bots and intelmqmanager with:

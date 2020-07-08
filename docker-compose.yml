@@ -36,4 +36,4 @@ services:
       LOGROTATE_COMPRESSION: compress
       LOGROTATE_CRONSCHEDULE: '30 * * * * *'
     volumes:
-    - icert-intelmq-log:/var/log/intelmq
+    - cert-intelmq-logs:/var/log/intelmq
