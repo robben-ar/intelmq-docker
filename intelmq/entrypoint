@@ -27,12 +27,12 @@ else
 
 	echo "Upgrading running config"
 	su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
+	chown -R intelmq:intelmq /opt/intelmq/
+	chown -R intelmq.www-data /opt/intelmq/etc/;
+	chmod -R g+w  /opt/intelmq
 
 fi
 
-chown -R intelmq:intelmq /opt/intelmq/
-chown -R intelmq.www-data /opt/intelmq/etc/;
-chmod -R g+w  /opt/intelmq
 
 $@
 
