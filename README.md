@@ -51,7 +51,15 @@ git clone $REPOBOTS intelmq/intelmq-bots/gitRepo
 
 ```
 
-Then you can update your bots and intelmqmanager with:
+Once you clone the repository just start it:
+
+```
+docker-compose -f docker-compose-dev.yml up
+```
+
+And work with files in intelmq/intelmq-bots/gitRepo
+
+To reload the running bots in intelmqmanager with:
 
 `docker exec -it intelmq-docker_intelmq_1 update`
 
