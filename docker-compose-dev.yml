@@ -14,12 +14,12 @@ services:
     networks:
       - intelmq-network
     volumes:
-      - ./intelmq/intelmq-bots/output/:/opt/intelmq/var/lib/bots/file-output/
-      - ./intelmq/intelmq-bots/logs:/opt/intelmq/var/log/
-      # git clone yourRepo intelmq/intelmq-bots/gitRepo  or git clone https://github.com/CERTUNLP/intelmq-bots.git intelmq/intelmq-bots/gitRepo
-      - ./intelmq/intelmq-bots/gitRepo/etc:/opt/intelmq/etc
-      - ./intelmq/intelmq-bots/gitRepo/bots/BOTS:/opt/intelmq/etc/BOTS
-      - ./intelmq/intelmq-bots/gitRepo:/intelmq-bots/
+      - ./volumes/output/:/opt/intelmq/var/lib/bots/file-output/
+      - ./volumes/logs:/opt/intelmq/var/log/
+      # git clone yourRepo volumes/intelmq-bots git clone https://github.com/CERTUNLP/intelmq-bots.git volumes/intelmq-bots
+      - ./volumes/intelmq-bots/etc:/opt/intelmq/etc
+      - ./volumes/intelmq-bots/bots/BOTS:/opt/intelmq/etc/BOTS
+      - ./volumes/intelmq-bots/:/intelmq-bots/
     environment:
       REDIS_SERVER: redis
       DEV: "true"
@@ -41,5 +41,4 @@ services:
       LOGROTATE_COMPRESSION: compress
       LOGROTATE_CRONSCHEDULE: '46 * * * * *'
     volumes:
-    - ./intelmq/intelmq-bots/logs:/var/log/intelmq
-
+    - ./volumes/logs:/var/log/intelmq

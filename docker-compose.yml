@@ -6,11 +6,13 @@ volumes:
     driver: local
   cert-intelmq-logs:
     driver: local
+  cert-intelmq-redis:
+    driver: local
 services:
   redis:
     image: redis
     volumes:
-    - ./redis:/usr/local/etc/redis/
+    - cert-intelmq-redis:/usr/local/etc/redis/
     command:
     - redis-server
     - /usr/local/etc/redis/redis.conf
