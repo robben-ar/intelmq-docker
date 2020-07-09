@@ -12,12 +12,13 @@ services:
   redis:
     image: redis
     volumes:
-    - cert-intelmq-redis:/usr/local/etc/redis/
+    - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    - cert-intelmq-redis:/data/
     command:
     - redis-server
     - /usr/local/etc/redis/redis.conf
   intelmq:
-    image: certunlp/intelmq:1.3
+    image: certunlp/intelmq:1.4
     environment:
       REDIS_SERVER: redis
       REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git

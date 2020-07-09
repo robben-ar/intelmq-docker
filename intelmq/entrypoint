@@ -1,18 +1,6 @@
 #!/bin/bash
 
-if [[ ! -z "${DEV}" ]]; then
-	cp -a intelmq-bots/bots/* /opt/dev_intelmq/intelmq/bots/
-	for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done
-	update
-else
-	echo "Mixing bots"
-	if [[ ! -z "${REPO_UPDATE}" ]]; then
-		rm -fr /intelmq-bots
-		git clone ${REPO_UPDATE}
-		cp -a intelmq-bots/bots/* /opt/dev_intelmq/intelmq/bots/
-		cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
-		for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done
-	fi
+function check_config_files {
 
 	echo "Checking for configuration files"
 	for i in $(find /intelmq-bots/etc/ -name "*.conf"); do
@@ -22,17 +10,24 @@ else
 	done;
 	if [[ ! -f /opt/intelmq/etc/manager/positions.conf ]]; then
 			cp -a /intelmq-bots/etc/manager /opt/intelmq/etc/;
-			chown -R intelmq.www-data /opt/intelmq/etc/manager;
 	fi;
-
-	echo "Upgrading running config"
-	su - intelmq -s /bin/bash -c 'intelmqctl upgrade-config'
-	chown -R intelmq:intelmq /opt/intelmq/
 	chown -R intelmq.www-data /opt/intelmq/etc/;
-	chmod -R g+w  /opt/intelmq
 
+ }
+
+if [[ ! -z "${DEV}" ]]; then
+  update
+else
+	echo "Mixing bots"
+	if [[ ! -z "${REPO_UPDATE}" ]]; then
+		rm -fr /intelmq-bots
+		git clone ${REPO_UPDATE}
+		cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
+		check_config_files
+		update
+	else
+		check_config_files
+	fi
 fi
 
-
 $@
-
