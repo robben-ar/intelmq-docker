@@ -43,6 +43,7 @@ First time you run the docker-compose: bots and conf are going to be downloaded 
 
 # Develop mode
 
+
 First clone your intelmq-bots (or default repo):
 
 ```
@@ -55,6 +56,13 @@ Once you clone the repository just start it:
 
 ```
 docker-compose -f docker-compose-dev.yml up
+```
+Note: there is a enviroment variable yo need to set if you want the docker to container to install wathever is in yours bot repository
+
+
+```
+    DEV: "true"
+
 ```
 
 And work with your src files in volumes/intelmq-bots/
