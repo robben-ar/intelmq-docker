@@ -57,15 +57,14 @@ Once you clone the repository just start it:
 ```
 docker-compose -f docker-compose-dev.yml up
 ```
-Note: there is a enviroment variable yo need to set if you want the docker to container to install wathever is in yours bot repository
 
+And work with your src files in volumes/intelmq-bots/
+
+Note: there is a enviroment variable yo need to set if you want the docker to container to install wathever is in yours bot repository
 
 ```
     DEV: "true"
-
 ```
-
-And work with your src files in volumes/intelmq-bots/
 
 To test your changes you just need to reload the running bots in intelmqmanager with:
 
