@@ -23,6 +23,12 @@ services:
     environment:
       REDIS_SERVER: redis
       DEV: "true"
+      LOG_MAIL_ENABLED: "true"
+      LOG_MAIL_MAILHOST: "mail.example.unlp.edu.ar"
+      LOG_MAIL_PORT: 25
+      LOG_MAIL_FROMADDR: "intelmq@examplefeeds.unlp.edu.ar"
+      LOG_MAIL_TOADDR: "support@example.unlp.edu.ar"
+      LOG_MAIL_SUBJECT: "[INTELMQ] Application Error"
   redis:
     image: redis
     volumes:
