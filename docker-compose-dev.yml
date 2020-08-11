@@ -24,7 +24,7 @@ services:
       REDIS_SERVER: redis
       DEV: "true"
       LOG_MAIL_ENABLED: "true"
-      LOG_LEVEL: "logging.ERROR"
+      LOG_MAIL_LEVEL: "logging.ERROR"
       LOG_MAIL_MAILHOST: "mail.example.unlp.edu.ar"
       LOG_MAIL_PORT: 25
       LOG_MAIL_FROMADDR: "intelmq@examplefeeds.unlp.edu.ar"
