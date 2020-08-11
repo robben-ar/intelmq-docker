@@ -22,7 +22,17 @@ services:
     environment:
       REDIS_SERVER: redis
       REPO_UPDATE: https://github.com/CERTUNLP/intelmq-bots.git
-    volumes:
+      LOG_MAIL_ENABLED: "true"
+      LOG_LEVEL: "logging.ERROR"
+      LOG_MAIL_MAILHOST: "mail.example.unlp.edu.ar"
+      LOG_MAIL_PORT: 25
+      LOG_MAIL_FROMADDR: "intelmq@examplefeeds.unlp.edu.ar"
+      LOG_MAIL_TOADDR: "support@example.unlp.edu.ar"
+      LOG_MAIL_SUBJECT: "[INTELMQ] Application Error"
+      LOG_MAIL_CREDENTIALS: None #tuple (username, password)
+      LOG_MAIL_SECURE: None
+      ENABLE_BOTNET_AT_BOOT: "true"
+   volumes:
     - cert-intelmq-bots-output:/opt/intelmq/var/lib/bots/file-output/
     - cert-intelmq-bots:/opt/intelmq/etc/
     - cert-intelmq-logs:/opt/intelmq/var/log/

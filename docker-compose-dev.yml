@@ -24,11 +24,15 @@ services:
       REDIS_SERVER: redis
       DEV: "true"
       LOG_MAIL_ENABLED: "true"
+      LOG_LEVEL: "logging.ERROR"
       LOG_MAIL_MAILHOST: "mail.example.unlp.edu.ar"
       LOG_MAIL_PORT: 25
       LOG_MAIL_FROMADDR: "intelmq@examplefeeds.unlp.edu.ar"
       LOG_MAIL_TOADDR: "support@example.unlp.edu.ar"
       LOG_MAIL_SUBJECT: "[INTELMQ] Application Error"
+      LOG_MAIL_CREDENTIALS: None #tuple (username, password)
+      LOG_MAIL_SECURE: None
+      ENABLE_BOTNET_AT_BOOT: "true"
   redis:
     image: redis
     volumes:
