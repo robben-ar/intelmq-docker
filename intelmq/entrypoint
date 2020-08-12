@@ -21,7 +21,7 @@ else
 	echo "Mixing bots"
 	if [[ ! -z "${REPO_UPDATE}" ]]; then
 		rm -fr /intelmq-bots
-		git clone ${REPO_UPDATE}
+		git clone ${REPO_UPDATE} /intelmq-bots
 		cp -a intelmq-bots/bots/BOTS /opt/intelmq/etc/
 		check_config_files
 		update
