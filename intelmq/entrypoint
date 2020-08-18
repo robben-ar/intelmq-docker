@@ -38,6 +38,9 @@ fi
 if [ "${ENABLE_BOTNET_AT_BOOT}" = "true" ]; then
 	su - intelmq -s /bin/bash -c 'intelmqctl start'
 fi
-$@
+
+
 # Requirements TeamCymru Bots
 sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1.0/' /etc/ssl/openssl.cnf
+
+$@
