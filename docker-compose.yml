@@ -32,7 +32,7 @@ services:
       LOG_MAIL_CREDENTIALS: None #tuple (username, password)
       LOG_MAIL_SECURE: None
       ENABLE_BOTNET_AT_BOOT: "true"
-   volumes:
+    volumes:
     - cert-intelmq-bots-output:/opt/intelmq/var/lib/bots/file-output/
     - cert-intelmq-bots:/opt/intelmq/etc/
     - cert-intelmq-logs:/opt/intelmq/var/log/
